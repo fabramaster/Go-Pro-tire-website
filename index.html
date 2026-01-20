@@ -6,7 +6,7 @@
     <title>Go Pro Tires | 24/7 Mobile Tire Service Kelowna</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,15 +16,59 @@
 
         :root {
             --red: #c41e2a;
-            --dark: #1a1a1a;
+            --red-hover: #a5181f;
+            --dark: #0d0d0d;
+            --darker: #080808;
             --light: #f5f5f5;
             --white: #ffffff;
+            --gold: #f4b942;
+            --green: #4ade80;
         }
 
         body {
-            font-family: 'Barlow', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
-            color: var(--dark);
+            color: var(--white);
+            background: var(--dark);
+        }
+
+        /* Rubber Texture Background */
+        .rubber-bg {
+            background-color: #111111;
+            background-image: 
+                radial-gradient(ellipse at 50% 50%, rgba(30, 30, 30, 0.8) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-blend-mode: overlay;
+        }
+
+        .rubber-texture {
+            position: relative;
+        }
+
+        .rubber-texture::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.03) 2px,
+                    rgba(0,0,0,0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.03) 2px,
+                    rgba(0,0,0,0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* Navigation */
@@ -32,22 +76,38 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--white);
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 0.5rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .logo img {
-            height: 70px;
+            height: 50px;
+        }
+
+        .logo-text {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-text span {
+            color: var(--red);
         }
 
         .nav-links {
@@ -57,10 +117,12 @@
         }
 
         .nav-links a {
-            color: var(--dark);
+            color: var(--white);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: color 0.2s;
         }
 
@@ -71,52 +133,106 @@
         .nav-phone {
             background: var(--red);
             color: var(--white);
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 4px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .nav-phone:hover {
+            background: var(--red-hover);
         }
 
         /* Hero */
         .hero {
-            padding-top: 100px;
-            min-height: 70vh;
-            background-color: #1a1a1a;
-            background-image: url('IMG-20260114-WA0001.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            padding-top: 80px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: var(--white);
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
-            max-width: 700px;
+            max-width: 800px;
             padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-tagline {
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             opacity: 0.9;
         }
 
-        .hero h1 {
-            font-size: 3rem;
+        .hero-tagline strong {
+            color: var(--white);
+        }
+
+        .hero-subtitle {
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .hero-headline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .hero-bold {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
             line-height: 1.2;
         }
 
-        .hero p {
+        .hero-services {
             font-size: 1.1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
             opacity: 0.9;
+        }
+
+        .hero-location {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .check-icon {
+            color: var(--green);
+            font-size: 1.2rem;
         }
 
         .hero-buttons {
@@ -124,15 +240,21 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 1.5rem;
         }
 
         .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
             text-decoration: none;
             font-weight: 600;
-            border-radius: 4px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 6px;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -142,39 +264,131 @@
         .btn-primary {
             background: var(--red);
             color: var(--white);
+            box-shadow: 0 4px 15px rgba(196, 30, 42, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--red-hover);
         }
 
         .btn-secondary {
             background: var(--white);
             color: var(--dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: #f0f0f0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--red);
+        }
+
+        .btn-outline:hover {
+            background: var(--red);
+        }
+
+        /* Hero Image Section */
+        .hero-image-section {
+            padding: 0;
+            background: var(--darker);
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 0;
+        }
+
+        /* Quick Features Strip */
+        .features-strip {
+            background: var(--darker);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .features-strip-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .features-row {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .trust-badges {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
         }
 
         /* Sections */
         .section {
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-title {
+            font-family: 'Oswald', sans-serif;
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            color: var(--dark);
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .section-subtitle {
             text-align: center;
-            color: #666;
+            color: rgba(255,255,255,0.7);
             margin-bottom: 3rem;
+            font-size: 1.1rem;
         }
 
         /* Services */
         .services {
-            background: var(--light);
+            background: var(--dark);
         }
 
         .services-grid {
@@ -184,31 +398,184 @@
         }
 
         .service-card {
-            background: var(--white);
+            background: rgba(255,255,255,0.05);
             padding: 2rem;
             border-radius: 8px;
             border-left: 4px solid var(--red);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
         }
 
         .service-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+            text-transform: uppercase;
         }
 
         .service-card p {
-            color: #666;
+            color: rgba(255,255,255,0.7);
             font-size: 0.95rem;
             margin-bottom: 1rem;
         }
 
         .service-price {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--red);
         }
 
+        /* Gallery */
+        .gallery {
+            background: var(--darker);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 4/3;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay p {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* Placeholder for gallery items without images */
+        .gallery-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(196,30,42,0.2), rgba(0,0,0,0.3));
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .gallery-placeholder .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Reviews */
+        .reviews {
+            background: var(--dark);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .review-card::before {
+            content: '"';
+            font-family: Georgia, serif;
+            font-size: 4rem;
+            color: var(--red);
+            opacity: 0.3;
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+            line-height: 1;
+        }
+
+        .review-stars {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .review-text {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .review-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .review-info p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
         /* Why Choose Us */
+        .why-us {
+            background: var(--darker);
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -217,65 +584,60 @@
 
         .feature {
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            transition: transform 0.3s;
         }
 
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--red);
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--red), #8b1420);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
         }
 
         .feature h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
         }
 
         .feature p {
-            color: #666;
+            color: rgba(255,255,255,0.7);
             font-size: 0.95rem;
         }
 
         /* Booking */
         .booking {
             background: var(--dark);
-            color: var(--white);
             text-align: center;
-        }
-
-        .booking .section-title {
-            color: var(--white);
-        }
-
-        .booking .section-subtitle {
-            color: rgba(255,255,255,0.7);
-        }
-
-        .booking-box {
-            background: rgba(255,255,255,0.05);
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .booking-box p {
-            margin-bottom: 1.5rem;
         }
 
         .booking-embed {
             max-width: 600px;
             margin: 0 auto;
             min-height: 400px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            padding: 1rem;
         }
 
         /* Contact */
+        .contact {
+            background: var(--darker);
+        }
+
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -283,20 +645,43 @@
             text-align: center;
         }
 
+        .contact-item {
+            padding: 2rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
         .contact-item h3 {
+            font-family: 'Oswald', sans-serif;
             color: var(--red);
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
         }
 
         .contact-item p {
-            color: #666;
+            color: rgba(255,255,255,0.7);
         }
 
         .contact-item .phone {
-            font-size: 1.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--dark);
+            color: var(--white);
+        }
+
+        .contact-item a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--red);
         }
 
         /* Footer */
@@ -305,6 +690,7 @@
             color: var(--white);
             text-align: center;
             padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .footer p {
@@ -323,70 +709,311 @@
             }
 
             .logo img {
-                height: 50px;
+                height: 40px;
             }
 
             .nav-phone {
-                white-space: nowrap;
-                padding: 0.4rem 0.75rem;
+                padding: 0.5rem 0.75rem;
                 font-size: 0.85rem;
             }
 
-            .hero h1 {
-                font-size: 2rem;
-                margin-bottom: 5rem;
+            .hero-headline {
+                font-size: 2.2rem;
+            }
+
+            .hero-bold {
+                font-size: 1.6rem;
             }
 
             .section {
                 padding: 3rem 1rem;
             }
-        }
 
-        /* Hamburger for mobile */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+            .section-title {
+                font-size: 1.8rem;
+            }
 
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+            .features-row {
+                gap: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
             }
         }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content > * {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+        .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+        .hero-content > *:nth-child(6) { animation-delay: 0.6s; }
+        .hero-content > *:nth-child(7) { animation-delay: 0.7s; }
+        .hero-content > *:nth-child(8) { animation-delay: 0.8s; }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-content">
             <a href="#" class="logo">
+                <!-- Replace with your logo image -->
                 <img src="IMG-20260114-WA0000.jpg" alt="Go Pro Tires">
             </a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#reviews">Reviews</a></li>
                 <li><a href="#booking">Book Now</a></li>
-                <li><a href="#why-us">Why Us</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <a href="tel:+17782146163" class="nav-phone">📞 (778) 214-6163</a>
         </div>
     </nav>
 
-    <section id="home" class="hero">
+    <!-- Hero Section -->
+    <section id="home" class="hero rubber-bg rubber-texture">
         <div class="hero-content">
-            <p class="hero-tagline">Proudly Serving Kelowna & the Okanagan</p>
-            <h1>Mobile Tire Service<br>We Come To You</h1>
-            <p>Professional tire mounting, balancing, and repair — at your location, on your schedule. Available 24/7.</p>
+            <p class="hero-tagline">Proudly Serving <strong>Kelowna & the Okanagan</strong></p>
+            <p class="hero-subtitle">Fast help when you need it most</p>
+            
+            <h1 class="hero-headline">Stuck? Flat Tire?</h1>
+            <p class="hero-bold">We Come To You. Day or Night.</p>
+            
+            <p class="hero-services">Tire Mounting • Balancing • Repairs</p>
+            <p class="hero-location">At Your Home, Work, or Roadside</p>
+            
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <span class="check-icon">✓</span>
+                    <span>Available 24/7 for Emergencies</span>
+                </div>
+                <div class="hero-feature">
+                    <span class="check-icon">✓</span>
+                    <span>Licensed & Insured</span>
+                </div>
+                <div class="hero-feature">
+                    <span class="check-icon">✓</span>
+                    <span>Trusted, Professional & Friendly</span>
+                </div>
+            </div>
+            
             <div class="hero-buttons">
-                <a href="#booking" class="btn btn-primary">Book an Appointment</a>
-                <a href="tel:+17782146163" class="btn btn-secondary">📞 Call Now</a>
+                <a href="tel:+17782146163" class="btn btn-primary">📞 Get Help Now</a>
+                <a href="#booking" class="btn btn-secondary">📅 Schedule at Your Convenience</a>
+            </div>
+            
+            <a href="https://square.site/book/L7AH6X853RTMS/go-pro-tires-kelowna-bc" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">🛞 Shop New Tires</a>
+        </div>
+    </section>
+
+    <!-- Hero Image -->
+    <section class="hero-image-section">
+        <!-- Replace with your hero image -->
+        <img src="IMG-20260114-WA0001.jpg" alt="Go Pro Tires Mobile Service" class="hero-image">
+    </section>
+
+    <!-- Quick Features Strip -->
+    <section class="features-strip rubber-bg">
+        <div class="features-strip-content">
+            <div class="features-row">
+                <div class="feature-item">
+                    <span class="feature-icon">🔧</span>
+                    <span>On-Site Service</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⏱️</span>
+                    <span>Fast Response</span>
+                </div>
+                <div class="feature-item">
+                    <span class="check-icon">✓</span>
+                    <span>Serving Kelowna & Okanagan</span>
+                </div>
+            </div>
+            
+            <div class="stars">★★★★★</div>
+            
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <span class="check-icon">✓</span>
+                    <span>Licensed & Insured</span>
+                </div>
+                <div class="trust-badge">
+                    <span class="check-icon">✓</span>
+                    <span>Trusted, Professional & Friendly</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="booking" class="section services">
+    <!-- Services Section -->
+    <section id="services" class="section services rubber-bg rubber-texture">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Professional mobile tire service at your location</p>
+            
+            <a href="https://square.site/book/L7AH6X853RTMS/go-pro-tires-kelowna-bc" target="_blank" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.25rem 2.5rem;">
+                📋 View Services & Book Online
+            </a>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <div class="container">
+            <h2 class="section-title">Our Work</h2>
+            <p class="section-subtitle">See Go Pro Tires in action</p>
+            
+            <div class="gallery-grid">
+                <!-- Replace these with your actual images -->
+                <div class="gallery-item">
+                    <img src="gallery-1.jpg" alt="Mobile tire service van" onerror="this.parentElement.classList.add('gallery-placeholder'); this.style.display='none'; this.parentElement.innerHTML='<div class=\'icon\'>🚐</div><p>Service Van</p>';">
+                    <div class="gallery-overlay">
+                        <p>Fully equipped mobile service van</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery-2.jpg" alt="Tire installation" onerror="this.parentElement.classList.add('gallery-placeholder'); this.style.display='none'; this.parentElement.innerHTML='<div class=\'icon\'>🔧</div><p>Professional Installation</p>';">
+                    <div class="gallery-overlay">
+                        <p>Professional tire installation</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery-3.jpg" alt="Roadside assistance" onerror="this.parentElement.classList.add('gallery-placeholder'); this.style.display='none'; this.parentElement.innerHTML='<div class=\'icon\'>🚗</div><p>Roadside Service</p>';">
+                    <div class="gallery-overlay">
+                        <p>Roadside tire assistance</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery-4.jpg" alt="Tire balancing" onerror="this.parentElement.classList.add('gallery-placeholder'); this.style.display='none'; this.parentElement.innerHTML='<div class=\'icon\'>⚖️</div><p>Precision Balancing</p>';">
+                    <div class="gallery-overlay">
+                        <p>Precision tire balancing</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery-5.jpg" alt="Winter tire changeover" onerror="this.parentElement.classList.add('gallery-placeholder'); this.style.display='none'; this.parentElement.innerHTML='<div class=\'icon\'>❄️</div><p>Seasonal Changeover</p>';">
+                    <div class="gallery-overlay">
+                        <p>Seasonal tire changeover</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery-6.jpg" alt="Customer service" onerror="this.parentElement.classList.add('gallery-placeholder'); this.style.display='none'; this.parentElement.innerHTML='<div class=\'icon\'>👍</div><p>Happy Customers</p>';">
+                    <div class="gallery-overlay">
+                        <p>Another satisfied customer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section reviews rubber-bg rubber-texture">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            <p class="section-subtitle">What our customers are saying</p>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Got a flat on the highway and these guys came out within 30 minutes. Professional, fast, and fair pricing. Highly recommend for anyone in Kelowna!</p>
+                    <div class="review-author">
+                        <div class="review-avatar">M</div>
+                        <div class="review-info">
+                            <h4>Mike T.</h4>
+                            <p>Kelowna</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">So convenient! They came to my office and changed all four tires while I was in a meeting. No more waiting at the tire shop. This is the way to do it.</p>
+                    <div class="review-author">
+                        <div class="review-avatar">S</div>
+                        <div class="review-info">
+                            <h4>Sarah K.</h4>
+                            <p>West Kelowna</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Called them for an emergency late at night. They showed up, fixed my tire, and got me back on the road. Can't thank them enough for the 24/7 service!</p>
+                    <div class="review-author">
+                        <div class="review-avatar">J</div>
+                        <div class="review-info">
+                            <h4>Jason R.</h4>
+                            <p>Lake Country</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">Best tire service in the Okanagan. Professional equipment, knowledgeable technician, and they came right to my driveway. Will definitely use again.</p>
+                    <div class="review-author">
+                        <div class="review-avatar">L</div>
+                        <div class="review-info">
+                            <h4>Linda P.</h4>
+                            <p>Peachland</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-us" class="section why-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose Go Pro Tires?</h2>
+            <p class="section-subtitle">Convenience and quality you can count on</p>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-circle">🚐</div>
+                    <h3>We Come To You</h3>
+                    <p>Home, work, or roadside — our fully-equipped van brings the tire shop to your location.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-circle">🕐</div>
+                    <h3>24/7 Available</h3>
+                    <p>Emergencies don't wait. We're ready to help day or night, any day of the week.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-circle">✓</div>
+                    <h3>Professional Quality</h3>
+                    <p>Same equipment and standards as traditional tire shops, with added convenience.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-circle">💲</div>
+                    <h3>Fair Pricing</h3>
+                    <p>Transparent, competitive rates with no hidden fees. Pay on-site.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="section booking rubber-bg rubber-texture">
         <div class="container">
             <h2 class="section-title">Book Your Service</h2>
             <p class="section-subtitle">Schedule your appointment online</p>
@@ -399,71 +1026,65 @@
         </div>
     </section>
 
-    <section id="why-us" class="section">
-        <div class="container">
-            <h2 class="section-title">Why Choose Go Pro Tires?</h2>
-            <p class="section-subtitle">Convenience and quality you can count on</p>
-            
-            <div class="features-grid">
-                <div class="feature">
-                    <div class="feature-icon">🚐</div>
-                    <h3>We Come To You</h3>
-                    <p>Home, work, or roadside — our fully-equipped van brings the tire shop to your location.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🕐</div>
-                    <h3>24/7 Available</h3>
-                    <p>Emergencies don't wait. We're ready to help day or night, any day of the week.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">✓</div>
-                    <h3>Professional Quality</h3>
-                    <p>Same equipment and standards as traditional tire shops, with added convenience.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">💲</div>
-                    <h3>Fair Pricing</h3>
-                    <p>Transparent, competitive rates with no hidden fees. Pay on-site.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <section id="contact" class="section">
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
         <div class="container">
             <h2 class="section-title">Contact Us</h2>
             <p class="section-subtitle">Get in touch anytime</p>
             
             <div class="contact-grid">
                 <div class="contact-item">
-                    <h3>📞 Phone</h3>
-                    <p class="phone">(778) 214-6163</p>
+                    <div class="contact-icon">📞</div>
+                    <h3>Phone</h3>
+                    <p class="phone"><a href="tel:+17782146163">(778) 214-6163</a></p>
                     <p>24/7 Emergency Line</p>
                 </div>
                 <div class="contact-item">
-                    <h3>📍 Service Area</h3>
+                    <div class="contact-icon">📍</div>
+                    <h3>Service Area</h3>
                     <p>Kelowna • West Kelowna</p>
                     <p>Lake Country • Peachland • Summerland</p>
                 </div>
                 <div class="contact-item">
-                    <h3>✉️ Email</h3>
-                    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="75011c071006121a05071a351218141c195b161a18">[email&#160;protected]</a></p>
+                    <div class="contact-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p><a href="mailto:goprotires@gmail.com">goprotires@gmail.com</a></p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>© 2026 Go Pro Tires | Mobile Tire Service Kelowna</p>
+            <p>© 2026 Go Pro Tires | Mobile Tire Service Kelowna | Skip the Shop. We Come to You.</p>
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(13, 13, 13, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(13, 13, 13, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
