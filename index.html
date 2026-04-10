@@ -338,12 +338,14 @@
             border-radius: 12px;
             overflow: hidden;
             flex-shrink: 0;
+            background: var(--darker);
         }
 
         .work-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            object-position: center;
             transition: transform 0.3s;
         }
 
@@ -815,8 +817,12 @@
 
             /* Mobile Work Section */
             .work-item {
-                min-width: 260px;
-                height: 180px;
+                min-width: 280px;
+                height: 200px;
+            }
+
+            .work-item img {
+                object-fit: contain;
             }
 
             /* Mobile Brands */
@@ -1268,7 +1274,7 @@
                 <div class="contact-item">
                     <div class="contact-icon">✉️</div>
                     <h3>Email</h3>
-                    <p><a href="mailto:goprotires@gmail.com">goprotires@gmail.com</a></p>
+                    <p><a href="/cdn-cgi/l/email-protection#82e5edf2f0edf6ebf0e7f1c2e5efe3ebeeace1edef"><span class="__cf_email__" data-cfemail="44232b34362b302d362137042329252d286a272b29">[email&#160;protected]</span></a></p>
                 </div>
             </div>
         </div>
@@ -1281,7 +1287,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Reviews Carousel - Single review at a time
         let reviewsSlide = 0;
         const reviewsTotal = 4;
@@ -1325,12 +1331,3 @@
         // Navbar background on scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(13, 13, 13, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(13, 13, 13, 0.95)';
-            }
-        });
-    </script>
-</body>
-</html>
